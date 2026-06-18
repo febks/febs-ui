@@ -1,0 +1,14 @@
+{
+  "button": {
+    "files": ["packages/components/button/button.tsx"],
+    "dependencies": ["clsx"]
+  },
+  "input": {
+    "files": ["packages/components/input/input.tsx"],
+    "dependencies": []
+  },
+  "card": {
+    "files": ["packages/components/card/card.tsx"],
+    "dependencies": []
+  }
+}
