@@ -46,6 +46,7 @@ export async function add(component: string, options: { path: string }) {
   } catch (err) {
     spinner.stop()
     p.log.error("Something went wrong.")
+    console.error(err)
     process.exit(1)
   }
 }
