@@ -1,12 +1,27 @@
 const REGISTRY_URL =
-  "https://raw.githubusercontent.com/febks/febs-ui/main/registry.json"
+  "https://raw.githubusercontent.com/febks/febs-ui/master/registry.json"
 
 const BASE_URL =
-  "https://raw.githubusercontent.com/febks/febs-ui/main"
+  "https://raw.githubusercontent.com/febks/febs-ui/master"
 
 export async function getRegistry() {
   const res = await fetch(REGISTRY_URL)
-  return res.json()
+
+  if (!res.ok) {
+    throw new Error(
+      `Failed to fetch registry (${res.status}). URL: ${REGISTRY_URL}`
+    )
+  }
+
+  const text = await res.text()
+
+  try {
+    return JSON.parse(text)
+  } catch {
+    throw new Error(
+      `Registry is not valid JSON. Got: ${text.slice(0, 100)}...`
+    )
+  }
 }
 
 export async function fetchComponent(filePath: string): Promise<string> {

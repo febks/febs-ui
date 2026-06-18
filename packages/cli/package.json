@@ -1,6 +1,6 @@
 {
   "name": "@febks/febs-ui",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "type": "module",
   "bin": {
     "febs-ui": "./dist/index.js"
