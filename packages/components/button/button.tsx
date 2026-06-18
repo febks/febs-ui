@@ -1,9 +1,8 @@
 import type { ButtonHTMLAttributes } from "react"
 import { cva, type VariantProps } from "class-variance-authority"
-import { clsx } from "clsx"
+import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  // base styles
   "inline-flex items-center justify-center rounded-md font-medium transition-colors",
   {
     variants: {
@@ -18,10 +17,7 @@ const buttonVariants = cva(
         lg: "h-12 px-6 text-lg",
       },
     },
-    defaultVariants: {
-      variant: "default",
-      size: "md",
-    },
+    defaultVariants: { variant: "default", size: "md" },
   }
 )
 
@@ -32,7 +28,7 @@ interface ButtonProps
 export function Button({ className, variant, size, ...props }: ButtonProps) {
   return (
     <button
-      className={clsx(buttonVariants({ variant, size }), className)}
+      className={cn(buttonVariants({ variant, size }), className)}
       {...props}
     />
   )

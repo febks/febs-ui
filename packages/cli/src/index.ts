@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { Command } from "commander"
 import { add } from "./commands/add"
+import { init } from "./commands/init"
 
 const program = new Command()
 
@@ -8,6 +9,11 @@ program
   .name("febs-ui")
   .description("Add febs-ui components to your project")
   .version("1.0.0")
+
+program
+.command("init")
+.description("Initialize febs-ui in your project")
+.action(init)
 
 program
   .command("add <component>")

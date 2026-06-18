@@ -4,8 +4,19 @@ import fs from "fs"
 import path from "path"
 import { getRegistry, fetchComponent } from "../utils/registry"
 
-export async function add(component: string, options: { path: string }) {
-  p.intro(chalk.blue(`febs-ui`))
+export async function add(component: string) {
+  p.intro(chalk.blue("febs-ui"))
+
+  // Read config from febs-ui.json
+  const configPath = path.join(process.cwd(), "febs-ui.json")
+  if (!fs.existsSync(configPath)) {
+    p.log.error(
+      'febs-ui not initialized. Run "npx @febks/febs-ui init" first.'
+    )
+    process.exit(1)
+  }
+
+  const config = JSON.parse(fs.readFileSync(configPath, "utf-8"))
 
   const spinner = p.spinner()
   spinner.start(`Fetching ${component}...`)
@@ -20,13 +31,12 @@ export async function add(component: string, options: { path: string }) {
       process.exit(1)
     }
 
-    const { files, dependencies } = registry[component]
+    const { files } = registry[component]
 
-    // Fetch dan tulis file komponen
     for (const filePath of files) {
       const content = await fetchComponent(filePath)
       const fileName = path.basename(filePath)
-      const destDir = path.resolve(process.cwd(), options.path)
+      const destDir = path.resolve(process.cwd(), config.componentsPath)
       const destPath = path.join(destDir, fileName)
 
       fs.mkdirSync(destDir, { recursive: true })
@@ -34,19 +44,10 @@ export async function add(component: string, options: { path: string }) {
     }
 
     spinner.stop(`${component} added!`)
-
-    // Info dependencies yang perlu diinstall
-    if (dependencies.length > 0) {
-      p.log.info(
-        `Install dependencies: npm install ${dependencies.join(" ")}`
-      )
-    }
-
-    p.outro(chalk.green(`Done! Check ${options.path}`))
+    p.outro(chalk.green(`Done! Check ${config.componentsPath}`))
   } catch (err) {
     spinner.stop()
-    p.log.error("Something went wrong.")
-    console.error(err)
+    p.log.error(err instanceof Error ? err.message : "Something went wrong.")
     process.exit(1)
   }
 }
