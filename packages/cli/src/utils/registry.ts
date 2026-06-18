@@ -1,8 +1,8 @@
 const REGISTRY_URL =
-  "https://raw.githubusercontent.com/febks/febs-ui/master/registry.json"
+  "https://raw.githubusercontent.com/febks/febs-ui/main/registry.json"
 
 const BASE_URL =
-  "https://raw.githubusercontent.com/febks/febs-ui/master"
+  "https://raw.githubusercontent.com/febks/febs-ui/main"
 
 export async function getRegistry() {
   const res = await fetch(REGISTRY_URL)
