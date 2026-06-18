@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "storybook dev -p 6006 -c ./packages/components/.storybook",
+    "build-storybook": "storybook build -c ./packages/components/.storybook"
   },
   "keywords": [],
   "author": "",
@@ -20,5 +22,11 @@
     "clsx": "^2.1.1",
     "react": "^19.2.7",
     "tailwind-merge": "^3.6.0"
+  },
+  "devDependencies": {
+    "@storybook/react-vite": "^10.4.6",
+    "@tailwindcss/vite": "^4.3.1",
+    "storybook": "^10.4.6",
+    "tailwindcss": "^4.3.1"
   }
 }
